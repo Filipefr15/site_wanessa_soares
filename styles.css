@@ -172,8 +172,11 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
 .service-card:hover { transform: translateY(-8px); background: rgba(255,255,255,.075); border-color: rgba(223,156,158,.38); }
 .service-card::after { content: ""; position: absolute; width: 120px; height: 120px; right: -55px; bottom: -55px; border-radius: 50%; background: rgba(223,156,158,.11); }
 .service-number { color: rgba(255,255,255,.28); font-size: 11px; font-weight: 700; letter-spacing: .18em; }
-.service-icon { width: 65px; height: 65px; display: grid; place-items: center; margin: 36px 0 28px; border-radius: 50%; background: var(--sand-100); color: var(--petrol-900); }
-.service-icon svg { width: 36px; height: 36px; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; }
+.service-icon { width: 100%; height: 70px; display: flex; align-items: center; gap: 18px; margin: 29px 0 25px; color: var(--gold-300); }
+.service-icon::after { content: ""; height: 1px; flex: 1 1 auto; background: linear-gradient(90deg, rgba(223,156,158,.62), rgba(223,156,158,0)); }
+.service-icon svg { width: 64px; height: 64px; flex: 0 0 64px; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.45; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s ease; }
+.service-icon .accent { stroke: var(--rose-400); }
+.service-card:hover .service-icon svg { transform: translateY(-3px); }
 .service-card h3 { margin-bottom: 13px; font-family: "Playfair Display", serif; font-size: 25px; font-weight: 600; }
 .service-card p { margin: 0 0 20px; color: rgba(255,255,255,.62); font-size: 13px; }
 .service-card a { position: absolute; z-index: 2; left: 25px; bottom: 25px; display: inline-flex; gap: 8px; align-items: center; color: var(--rose-400); font-size: 12px; font-weight: 700; }
@@ -431,20 +434,20 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
   background: var(--sand-50);
 }
 
-/* Ícones abstratos e técnicos, sem expressões faciais. */
+/* Ilustrações editoriais dos serviços, sem caixas ou aparência de pictograma. */
 .service-icon {
-  width: 68px;
-  height: 68px;
-  margin: 34px 0 27px;
-  border: 1px solid rgba(216, 184, 143, .55);
-  border-radius: 18px;
-  background: linear-gradient(145deg, #fffaf5, var(--sand-100));
-  box-shadow: 0 12px 26px rgba(3, 24, 25, .12);
+  width: 100%;
+  height: 70px;
+  margin: 29px 0 25px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 .service-icon svg {
-  width: 39px;
-  height: 39px;
-  stroke-width: 1.55;
+  width: 64px;
+  height: 64px;
+  stroke-width: 1.45;
 }
 
 /* Galeria escalável: 3 cartões no desktop, 2 no tablet e 1 no celular. */
