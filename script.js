@@ -49,6 +49,19 @@
   const year = document.querySelector('#current-year');
   if (year) year.textContent = String(new Date().getFullYear());
 
+  // Ganchos de conversão: não coletam dados sozinhos. Se o Google Analytics
+  // for conectado no futuro, os principais cliques passam a ser medidos.
+  document.querySelectorAll('[data-track]').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', link.dataset.track, {
+          event_category: 'conversao',
+          transport_type: 'beacon'
+        });
+      }
+    });
+  });
+
   document.querySelectorAll('[data-gallery]').forEach((gallery) => {
     const track = gallery.querySelector('.gallery-track');
     const previous = gallery.querySelector('[data-gallery-prev]');
