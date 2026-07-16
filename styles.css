@@ -105,7 +105,7 @@ button { font: inherit; }
 .hero-glow { position: absolute; border-radius: 50%; filter: blur(2px); pointer-events: none; }
 .hero-glow-one { width: 390px; height: 390px; background: rgba(206, 131, 136, .1); left: -180px; top: 70px; }
 .hero-glow-two { width: 420px; height: 420px; border: 1px solid rgba(216,184,143,.14); right: -140px; bottom: -170px; }
-.hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: .98fr 1.02fr; align-items: center; gap: 74px; }
+.hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 42px; }
 .hero-copy { padding-top: 14px; }
 .eyebrow { margin: 0 0 20px; display: flex; align-items: center; gap: 12px; color: var(--rose-400); font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
 .eyebrow span { width: 36px; height: 1px; background: currentColor; }
@@ -131,9 +131,9 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
 .hero-trust li { display: flex; align-items: center; gap: 7px; }
 .hero-trust span { color: var(--gold-300); }
 .hero-media { position: relative; }
-.hero-photo-frame { aspect-ratio: 1.09 / 1; display: grid; place-items: center; overflow: hidden; border-radius: 220px 220px 28px 28px; background: #0b2324; border: 1px solid rgba(255,255,255,.12); box-shadow: var(--shadow); }
-.hero-photo-frame img { width: 100%; height: 100%; object-fit: contain; object-position: center; }
-.hero-media::before { content: ""; position: absolute; inset: 27px -22px -22px 26px; border: 1px solid rgba(216,184,143,.24); border-radius: 220px 220px 28px 28px; z-index: -1; }
+.hero-photo-frame { aspect-ratio: 1.08 / 1; display: grid; place-items: center; overflow: hidden; border-radius: 24px; background: #0b2324; border: 1px solid rgba(255,255,255,.12); box-shadow: var(--shadow); }
+.hero-photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero-media::before { content: ""; position: absolute; inset: 27px -22px -22px 26px; border: 1px solid rgba(216,184,143,.24); border-radius: 28px; z-index: -1; }
 .hero-card { position: absolute; left: -42px; bottom: 42px; min-width: 254px; display: flex; align-items: center; gap: 13px; padding: 15px 17px; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; background: rgba(252,249,245,.95); color: var(--petrol-900); box-shadow: var(--shadow-soft); }
 .hero-card-icon { width: 46px; height: 46px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; background: var(--petrol-900); color: var(--gold-300); font-family: "Playfair Display", serif; font-size: 13px; }
 .hero-card strong, .hero-card span { display: block; }
@@ -282,7 +282,7 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
 @media (max-width: 1060px) {
   .main-nav { gap: 16px; }
   .main-nav a { font-size: 12px; }
-  .hero-grid { gap: 42px; }
+  .hero-grid { grid-template-columns: .9fr 1.1fr; gap: 42px; }
   .hero-card { left: -18px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .service-card { min-height: 360px; }
@@ -302,8 +302,8 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
   .hero-grid { gap: 55px; }
   .hero-copy { max-width: 720px; }
   .hero-media { width: min(100%, 660px); margin-inline: auto; }
-  .hero-photo-frame { aspect-ratio: 1.35; border-radius: 190px 190px 24px 24px; }
-  .hero-media::before { border-radius: 190px 190px 24px 24px; }
+  .hero-photo-frame { aspect-ratio: 1.35; border-radius: 22px; }
+  .hero-media::before { border-radius: 26px; }
   .hero-card { left: 18px; bottom: 18px; }
   .about-grid { gap: 55px; }
   .about-media { width: min(100%, 570px); margin-inline: auto; }
@@ -334,8 +334,8 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .button { width: 100%; }
   .hero-trust { gap: 11px 18px; }
-  .hero-photo-frame { aspect-ratio: 1.2; border-radius: 150px 150px 20px 20px; }
-  .hero-media::before { inset: 16px -8px -12px 15px; border-radius: 150px 150px 20px 20px; }
+  .hero-photo-frame { aspect-ratio: 1.2; border-radius: 18px; }
+  .hero-media::before { inset: 16px -8px -12px 15px; border-radius: 21px; }
   .hero-card { position: relative; left: auto; bottom: auto; margin: -28px 15px 0; }
   .intro-strip-inner { min-height: 58px; justify-content: flex-start; overflow-x: auto; gap: 16px; font-size: 14px; white-space: nowrap; scrollbar-width: none; }
   .intro-strip-inner::-webkit-scrollbar { display: none; }
