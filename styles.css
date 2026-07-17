@@ -224,18 +224,21 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
 .journey-steps h3 { margin: 24px 0 10px; font-family: "Playfair Display", serif; font-size: 23px; color: var(--petrol-900); }
 .journey-steps p { margin: 0; color: var(--muted); font-size: 14px; }
 
-.social-proof { background: var(--rose-500); color: var(--white); overflow: hidden; }
-.social-proof-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 90px; }
+.social-proof { padding: clamp(64px, 6vw, 78px) 0; background: var(--rose-500); color: var(--white); overflow: hidden; }
+.social-proof-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(370px, .85fr); align-items: center; gap: clamp(48px, 6vw, 88px); }
+.social-proof-copy { max-width: 540px; }
 .social-proof-copy p:not(.eyebrow) { max-width: 510px; color: rgba(255,255,255,.74); }
 .social-proof-copy .eyebrow { color: var(--white); opacity: .72; }
-.social-card { justify-self: center; width: min(100%, 440px); padding: 18px; border-radius: 28px; background: var(--sand-50); color: var(--ink); box-shadow: 0 30px 80px rgba(83,27,31,.23); transform: rotate(2.5deg); }
-.social-card-top { display: flex; align-items: center; gap: 11px; padding-bottom: 13px; }
-.social-card-top img { width: 44px; height: 44px; object-fit: cover; border-radius: 50%; }
+.social-card { justify-self: end; width: min(100%, 460px); padding: 18px; overflow: hidden; border: 1px solid rgba(31,52,51,.08); border-radius: 28px; background: var(--sand-50); color: var(--ink); box-shadow: 0 30px 76px rgba(83,27,31,.22); }
+.social-card-top { display: flex; min-height: 48px; align-items: center; gap: 11px; padding: 0 1px 13px; }
+.social-card-top img { width: 42px; height: 42px; object-fit: cover; border-radius: 10px; }
 .social-card-top strong, .social-card-top span { display: block; }
-.social-card-top strong { font-size: 12px; }
-.social-card-top span { color: var(--muted); font-size: 10px; }
-.social-card-photo { width: 100%; aspect-ratio: 1.15; object-fit: cover; border-radius: 16px; }
-.social-card-bottom { display: flex; gap: 14px; padding: 12px 5px 2px; font-size: 20px; }
+.social-card-top strong { font-size: 12px; line-height: 1.25; }
+.social-card-top span { margin-top: 2px; color: var(--muted); font-size: 10px; }
+.social-card-photo { display: block; width: 100%; height: clamp(320px, 34vw, 420px); object-fit: cover; object-position: center 48%; border-radius: 16px; }
+.social-card-actions { display: flex; align-items: center; padding: 14px 4px 1px; }
+.social-card-actions > div { display: flex; gap: 15px; }
+.social-card-actions svg { width: 23px; height: 23px; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
 
 .faq { background: var(--sand-50); }
 .faq-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 90px; align-items: start; }
@@ -324,8 +327,8 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
   .differentials-copy, .faq-intro { position: static; }
   .journey-steps { grid-template-columns: repeat(2, 1fr); row-gap: 48px; }
   .journey-steps li:nth-child(2)::after { display: none; }
-  .social-proof-grid { gap: 50px; }
-  .social-card { justify-self: start; }
+  .social-proof-grid { gap: 44px; }
+  .social-card { justify-self: center; }
   .location-grid { gap: 48px; }
   .final-cta-inner { flex-direction: column; align-items: flex-start; }
   .footer-grid { grid-template-columns: 1.4fr .7fr .9fr; gap: 35px; }
@@ -360,7 +363,9 @@ h2 { margin-bottom: 22px; font-size: clamp(38px, 4vw, 57px); font-weight: 600; }
   .journey-steps li::after { display: none !important; }
   .journey-steps h3 { margin: 2px 0 5px; }
   .journey-steps p { grid-column: 2; }
-  .social-card { transform: none; }
+  .social-proof { padding: 64px 0; }
+  .social-card { width: min(100%, 430px); padding: 14px; border-radius: 24px; }
+  .social-card-photo { height: min(92vw, 370px); }
   .faq-grid { gap: 35px; }
   .faq-item summary { min-height: 74px; font-size: 14px; }
   .map-wrap, .map-wrap iframe { min-height: 390px; height: 390px; }
