@@ -1,0 +1,31 @@
+# Clínica Wanessa Soares
+
+> Site conceitual e demonstrativo, não oficial, sobre a Clínica Wanessa Soares em Jaciara, Mato Grosso.
+
+URL principal: https://site-wanessa-soares.vercel.app/
+
+## Sobre
+
+A página apresenta informações institucionais, serviços de estética e bem-estar, funcionamento, avaliações selecionadas e formas de contato. Procedimentos e acompanhamentos dependem de avaliação individual; o conteúdo não substitui orientação profissional.
+
+## Serviços em destaque
+
+- Harmonização facial
+- Toxina botulínica (Botox)
+- Ultraformer III
+- Depilação a laser
+- Nutrição, estética, lash design e micropigmentação, sujeitos a confirmação com a clínica
+
+## Localização e contato
+
+- Cidade: Jaciara, Mato Grosso, Brasil
+- WhatsApp: +55 66 99682-7697
+- Instagram: https://www.instagram.com/clinicawanessasoares/
+
+## Seções principais
+
+- Sobre: https://site-wanessa-soares.vercel.app/#sobre
+- Serviços: https://site-wanessa-soares.vercel.app/#servicos
+- Avaliações: https://site-wanessa-soares.vercel.app/#avaliacoes
+- Perguntas frequentes: https://site-wanessa-soares.vercel.app/#faq
+- Localização e horários: https://site-wanessa-soares.vercel.app/#localizacao

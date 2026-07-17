@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://site-wanessa-soares.vercel.app/sitemap.xml
