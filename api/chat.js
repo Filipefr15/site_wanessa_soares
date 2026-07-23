@@ -3,8 +3,12 @@
 // A chave de API só existe aqui (env var), nunca no frontend.
 
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite';
+// Rede de segurança fixa (não configurável via env): alias sempre-vivo mantido pelo provedor,
+// usado só se GEMINI_MODEL for descontinuado antes de alguém atualizar a env var.
+const GEMINI_FALLBACK_MODEL = 'gemini-flash-latest';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+const geminiEndpointFor = (model) =>
+  `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
 const MAX_MESSAGE_LENGTH = 600;
 const MAX_HISTORY_PAIRS = 6;
@@ -35,8 +39,9 @@ REGRAS DE COMPORTAMENTO (siga sempre, sem exceção):
 6. Respostas sempre curtas: no máximo 3 a 4 frases.
 7. Tom de voz: acolhedor, educado, caloroso e elegante, sem ser informal demais — reflete o cuidado e a atenção individual que marcam a clínica. Trate o usuário por "você".
 8. Não termine toda resposta com um convite para o WhatsApp — isso cansa e soa repetitivo. Só mencione o contato quando ele for de fato o próximo passo necessário: agendar, confirmar algo que você não sabe (regras 1, 2, 3 ou 4), ou quando a pessoa pedir para falar com alguém. Perguntas simples que você já respondeu com um fato institucional (cidade, horário, quais serviços existem, etc.) não precisam de nenhuma chamada para ação no final.
-9. Quando for citar um contato (WhatsApp ou Instagram), use no máximo uma vez por resposta e em um único formato — nunca repita o mesmo contato de duas formas na mesma frase (ex: não escreva o número e o link do WhatsApp juntos, nem o @ e o link do Instagram juntos). Para o Instagram, use o link https://www.instagram.com/clinicawanessasoares/ quando a pessoa perguntar sobre fotos, resultados ou quiser seguir a clínica.
-10. Não repita "Clínica Wanessa Soares", "Jaciara" ou "Jaciara (MT)" em toda resposta. Olhe o histórico da conversa: se você já disse o nome da clínica ou a cidade antes, não diga de novo — vá direto ao ponto da pergunta atual. Só cite o nome da clínica ou a cidade quando isso for realmente novo ou necessário para responder (ex.: a pessoa perguntou especificamente onde fica). Em respostas de continuidade (tipo "massa!", "obrigado", perguntas de acompanhamento), responda de forma natural e breve, sem reapresentar a clínica.`;
+9. Quando for citar um contato (WhatsApp ou Instagram), use no máximo uma vez por resposta e em um único formato — nunca repita o mesmo contato de duas formas na mesma frase (ex: não escreva o número e o link do WhatsApp juntos, nem o @ e o link do Instagram juntos). Para o WhatsApp, cole a URL crua https://wa.me/5566996827697 (o site já transforma automaticamente em link clicável). Para o Instagram, escreva exatamente o handle @clinicawanessasoares, sem colar a URL junto (o site também transforma o @ em link clicável sozinho).
+10. Não repita "Clínica Wanessa Soares", "Jaciara" ou "Jaciara (MT)" em toda resposta. Olhe o histórico da conversa: se você já disse o nome da clínica ou a cidade antes, não diga de novo — vá direto ao ponto da pergunta atual. Só cite o nome da clínica ou a cidade quando isso for realmente novo ou necessário para responder (ex.: a pessoa perguntou especificamente onde fica). Em respostas de continuidade (tipo "massa!", "obrigado", perguntas de acompanhamento), responda de forma natural e breve, sem reapresentar a clínica.
+11. Nunca use formatação markdown na resposta: sem **negrito**, sem [texto](link), sem listas com "-" ou "*". Responda sempre em texto simples — o site não renderiza markdown, então esses símbolos apareceriam literalmente na tela.`;
 
 function sendJson(res, status, body) {
   res.status(status).setHeader('Content-Type', 'application/json');
@@ -59,16 +64,12 @@ function sanitizeHistory(rawHistory) {
   return validTurns.slice(-MAX_HISTORY_PAIRS * 2);
 }
 
-async function callGemini(contents) {
-  if (!GEMINI_API_KEY) {
-    throw new Error('missing_api_key');
-  }
-
+async function requestGemini(model, contents) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const upstreamResponse = await fetch(`${GEMINI_ENDPOINT}?key=${GEMINI_API_KEY}`, {
+    const upstreamResponse = await fetch(`${geminiEndpointFor(model)}?key=${GEMINI_API_KEY}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       signal: controller.signal,
@@ -83,7 +84,9 @@ async function callGemini(contents) {
     });
 
     if (!upstreamResponse.ok) {
-      throw new Error(`upstream_status_${upstreamResponse.status}`);
+      const error = new Error(`upstream_status_${upstreamResponse.status}`);
+      error.status = upstreamResponse.status;
+      throw error;
     }
 
     const data = await upstreamResponse.json();
@@ -96,6 +99,28 @@ async function callGemini(contents) {
     return text.trim();
   } finally {
     clearTimeout(timeout);
+  }
+}
+
+async function callGemini(contents) {
+  if (!GEMINI_API_KEY) {
+    throw new Error('missing_api_key');
+  }
+
+  try {
+    return await requestGemini(GEMINI_MODEL, contents);
+  } catch (error) {
+    if (error?.status !== 404) {
+      throw error;
+    }
+
+    // GEMINI_MODEL provavelmente foi descontinuado — cai no alias sempre-vivo do provedor
+    // até alguém atualizar a env var. Log server-side apenas, nunca exposto ao cliente.
+    console.error(
+      'gemini_model_404_fallback',
+      `Modelo "${GEMINI_MODEL}" respondeu 404. Usando fallback "${GEMINI_FALLBACK_MODEL}". Atualize a env var GEMINI_MODEL.`
+    );
+    return requestGemini(GEMINI_FALLBACK_MODEL, contents);
   }
 }
 

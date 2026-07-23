@@ -26,14 +26,42 @@
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#39;');
 
+  // Handles conhecidos da clínica — se o LLM citar um @handle fora deste mapa, fica como texto puro.
+  const SOCIAL_HANDLES = {
+    '@clinicawanessasoares': 'https://www.instagram.com/clinicawanessasoares/'
+  };
+
+  // Ordem de prioridade: link markdown, depois URL crua, depois @handle de rede social.
+  const LINKIFY_PATTERN = /\[([^\]]+)\]\((https?:\/\/[^\s()]+)\)|(https?:\/\/[^\s<>()]+)|(@[a-zA-Z0-9_.]+)/g;
+
   const linkify = (escapedText) =>
-    escapedText.replace(/(https?:\/\/[^\s<]+)/g, (url) => {
-      // A URL já passou pelo escape acima; remove pontuação de borda comum antes de fechar a tag.
-      const trailingPunctuation = /[.,;:!?)\]]+$/;
-      const match = url.match(trailingPunctuation);
-      const cleanUrl = match ? url.slice(0, -match[0].length) : url;
-      const suffix = match ? match[0] : '';
-      return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${cleanUrl}</a>${suffix}`;
+    escapedText.replace(LINKIFY_PATTERN, (fullMatch, mdText, mdUrl, rawUrl, handle) => {
+      if (mdUrl) {
+        return `<a href="${mdUrl}" target="_blank" rel="noopener noreferrer">${mdText}</a>`;
+      }
+
+      if (rawUrl) {
+        // A URL já passou pelo escape acima; remove pontuação de borda comum antes de fechar a tag.
+        const trailingPunctuation = /[.,;:!?)\]]+$/;
+        const match = rawUrl.match(trailingPunctuation);
+        const cleanUrl = match ? rawUrl.slice(0, -match[0].length) : rawUrl;
+        const suffix = match ? match[0] : '';
+        return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${cleanUrl}</a>${suffix}`;
+      }
+
+      if (handle) {
+        // O "." está no conjunto de caracteres do handle, então ponto final de frase (ex: "@handle.")
+        // seria capturado junto. Separa esse trecho antes de buscar no mapa e recoloca fora do link.
+        const trailingMatch = handle.match(/\.+$/);
+        const trailing = trailingMatch ? trailingMatch[0] : '';
+        const cleanHandle = trailing ? handle.slice(0, -trailing.length) : handle;
+        const url = SOCIAL_HANDLES[cleanHandle.toLowerCase()];
+        return url
+          ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${cleanHandle}</a>${trailing}`
+          : handle;
+      }
+
+      return fullMatch;
     });
 
   const scrollToBottom = () => {
