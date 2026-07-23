@@ -648,10 +648,34 @@
 <p>As informações do site não substituem uma avaliação profissional.</p>
 </div>
 </footer>
-<a aria-label="Falar com a Clínica Wanessa Soares pelo WhatsApp" class="whatsapp-float" data-track="whatsapp_flutuante" href="https://wa.me/5566996827697?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20Cl%C3%ADnica%20Wanessa%20Soares.%20Gostaria%20de%20tirar%20uma%20d%C3%BAvida%20e%20consultar%20os%20hor%C3%A1rios%20dispon%C3%ADveis." rel="noopener" target="_blank">
-<svg aria-hidden="true" class="icon-svg icon-whatsapp" viewBox="0 0 875 874" focusable="false"><path d="M744 127C662 45 553 0 437 0C198 0 4 194 4 433C4 509 24 584 62 650L0 874L230 814C293 849 364 867 437 867C676 867 875 672 875 433C875 317 826 209 744 127ZM437 794C372 794 309 777 254 744L241 736L104 772L141 639L132 625C96 568 77 501 77 433C77 234 239 73 438 73C534 73 624 110 692 178C760 246 802 337 802 433C802 632 636 794 437 794ZM635 524C624 519 571 493 561 489C551 485 544 483 537 494C530 505 508 530 502 537C496 544 490 545 479 540C415 508 373 483 331 411C320 392 342 392 363 351C367 344 365 338 362 333C359 328 338 274 329 252C320 231 311 233 304 233H284C277 233 265 236 255 247C245 258 217 284 217 337C217 390 256 442 261 449C266 456 337 566 446 613C515 643 542 645 576 640C597 637 640 613 649 588C658 563 658 541 655 537C652 532 646 529 635 524Z" fill="currentColor"></path></svg>
-<span>Fale conosco</span>
-</a>
+<div class="ai-chat-widget" data-ai-chat="">
+<button aria-controls="ai-chat-panel" aria-expanded="false" aria-haspopup="dialog" aria-label="Abrir assistente virtual com IA da Clínica Wanessa Soares" class="ai-chat-toggle" data-ai-chat-toggle="" type="button">
+<span aria-hidden="true" class="ai-chat-toggle-icon">
+<svg class="ai-chat-icon-bubble" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16a1 1 0 0 1 1 1V15a1 1 0 0 1-1 1H9l-4.5 4V16H4a1 1 0 0 1-1-1V6.5a1 1 0 0 1 1-1Z"></path></svg>
+<svg class="ai-chat-icon-spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c.4 3.6 1 5.6 2.2 6.8S17.4 10.6 21 11c-3.6.4-5.6 1-6.8 2.2S12.4 16.6 12 20c-.4-3.6-1-5.6-2.2-6.8S6.6 11.4 3 11c3.6-.4 5.6-1 6.8-2.2S11.6 5.6 12 2Z"></path></svg>
+</span>
+<span aria-hidden="true" class="ai-chat-toggle-badge">IA</span>
+</button>
+<section aria-labelledby="ai-chat-title" class="ai-chat-panel" data-ai-chat-panel="" hidden="" role="dialog">
+<header class="ai-chat-header">
+<div>
+<strong id="ai-chat-title">Assistente virtual</strong>
+<span class="ai-chat-subtitle">Atendimento automático por IA — não substitui a equipe</span>
+</div>
+<button aria-label="Fechar assistente virtual" class="ai-chat-close" data-ai-chat-close="" type="button">
+<span aria-hidden="true">×</span>
+</button>
+</header>
+<div aria-label="Histórico da conversa com o assistente" aria-live="polite" class="ai-chat-messages" data-ai-chat-messages="" role="log"></div>
+<form class="ai-chat-form" data-ai-chat-form="">
+<textarea aria-label="Escreva sua mensagem para o assistente" class="ai-chat-input" data-ai-chat-input="" maxlength="600" placeholder="Escreva sua mensagem…" rows="1"></textarea>
+<button aria-label="Enviar mensagem" class="ai-chat-send" type="submit">
+<svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9" viewBox="0 0 24 24"><path d="M4 12h16M13 5l7 7-7 7"></path></svg>
+</button>
+</form>
+</section>
+</div>
 <script defer="" src="script.js"></script>
+<script defer="" src="chat-widget.js"></script>
 </body>
 </html>

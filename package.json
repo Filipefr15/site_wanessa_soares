@@ -1,0 +1,9 @@
+{
+  "name": "site-wanessa-soares",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page da Clínica Wanessa Soares, com chatbot de atendimento via Vercel Serverless Functions.",
+  "engines": {
+    "node": ">=18"
+  }
+}

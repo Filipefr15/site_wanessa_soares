@@ -4,7 +4,29 @@ Arquivos principais:
 - index.html
 - styles.css
 - script.js
+- chat-widget.js (widget do assistente virtual)
+- api/chat.js (backend do assistente virtual, Vercel Serverless Function)
 - assets/
+
+## Assistente virtual (chatbot com IA)
+
+O botão flutuante com "IA" abre um chat que responde dúvidas institucionais (serviços,
+horários, localização) usando o Gemini via API do Google AI Studio. A chave de API nunca
+fica no frontend — o backend em `api/chat.js` é a única parte que a lê, via variável de
+ambiente.
+
+Passos manuais (não automatizáveis por aqui):
+1. Gere uma chave gratuita em https://aistudio.google.com/apikey.
+2. No painel da Vercel do projeto: Settings → Environment Variables → adicione
+   `GEMINI_API_KEY` (Production e Preview). Opcionalmente, adicione `GEMINI_MODEL` para
+   trocar o modelo padrão (`gemini-3.5-flash-lite`).
+3. Para testar localmente, copie `.env.example` para `.env`, preencha `GEMINI_API_KEY` e
+   rode `vercel dev` (requer `npm i -g vercel` e `vercel login`) — ele sobe o site estático
+   e a function em `/api/chat` juntos em `http://localhost:3000`.
+
+Para trocar o negócio de contexto ou os limites de escopo da IA, edite apenas o
+`SYSTEM_PROMPT` em `api/chat.js` — é o único lugar que concentra fatos institucionais e
+regras de recusa.
 
 Atualizações desta versão:
 - Ícones oficiais e padronizados do WhatsApp em todos os botões e contatos.
