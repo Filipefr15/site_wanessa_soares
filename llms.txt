@@ -4,7 +4,7 @@
 
 URL principal: https://site-wanessa-soares.vercel.app/
 
-## Sobre
+## Sobre tudo
 
 A página apresenta informações institucionais, serviços de estética e bem-estar, funcionamento, avaliações selecionadas e formas de contato. Procedimentos e acompanhamentos dependem de avaliação individual; o conteúdo não substitui orientação profissional.
 
